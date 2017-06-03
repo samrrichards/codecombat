@@ -10,9 +10,9 @@ module.exports = class UnsubscribeView extends RootView
     @email = @getQueryVariable 'email'
 
   events:
-    'click #unsubscribe-button': 'onUnsubscribeButtonClicked'
+    'click #unsubscribe-button': 'onClickUnsubscribeButton'
 
-  onUnsubscribeButtonClicked: ->
+  onClickUnsubscribeButton: ->
     @$el.find('#unsubscribe-button').hide()
     @$el.find('.progress').show()
     @$el.find('.alert').hide()

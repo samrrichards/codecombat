@@ -9,7 +9,7 @@ module.exports = class PrepaidRedeemModal extends ModalView
   closeButton: true
 
   events:
-    'click #redeem' : 'onRedeemClicked'
+    'click #redeem' : 'onClickRedeem'
 
   constructor: (options) ->
     super options
@@ -17,5 +17,5 @@ module.exports = class PrepaidRedeemModal extends ModalView
     hasRedeemed = @ppc.userHasRedeemed(me.get('_id'))
     @redeemedOn = new moment(hasRedeemed).calendar() if hasRedeemed
 
-  onRedeemClicked: ->
+  onClickRedeem: ->
     @trigger 'confirm-redeem'

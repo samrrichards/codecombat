@@ -10,7 +10,7 @@ module.exports = class InvoicesView extends RootView
   template: template
 
   events:
-    'click #pay-button': 'onPayButton'
+    'click #pay-button': 'onClickPayButton'
 
   subscriptions:
     'stripe:received-token': 'onStripeReceivedToken'
@@ -20,7 +20,7 @@ module.exports = class InvoicesView extends RootView
     @amount = utils.getQueryVariable('a', 0)
     @description = utils.getQueryVariable('d', '')
 
-  onPayButton: ->
+  onClickPayButton: ->
     @description = $('#description').val()
 
     # Validate input
