@@ -12,8 +12,8 @@ module.exports = class CodeLogsView extends RootView
   tooltip: null
   events:
     'click .playback': 'onClickPlayback'
-    'input #userid-search': 'onUserIDInput'
-    'input #levelslug-search': 'onLevelSlugInput'
+    'input #userid-search': 'onUserIDSearchInput'
+    'input #levelslug-search': 'onLevelSlugSearchInput'
 
   initialize: ->
     #@spade = new Spade()
@@ -23,26 +23,26 @@ module.exports = class CodeLogsView extends RootView
     @onLevelSlugInput = _.debounce(@onLevelSlugInput, 300)
     #@supermodel.trackRequest(@codelogs.fetch())
 
-  onUserIDInput: (e) ->
+  onUserIDSearchInput: (e) ->
     userID = $('#userid-search')[0].value
     unless userID is ''
       Promise.resolve(@codelogs.fetchByUserID(userID))
-      .then (e) => 
-        @renderSelectors '#codelogtable'
-    else 
-      Promise.resolve(@codelogs.fetchLatest())
-      .then (e) => 
-        @renderSelectors '#codelogtable'
-
-  onLevelSlugInput: (e) ->
-    slug = $('#levelslug-search')[0].value
-    unless slug is ''
-      Promise.resolve(@codelogs.fetchBySlug(slug))
-      .then (e) => 
+      .then (e) =>
         @renderSelectors '#codelogtable'
     else
       Promise.resolve(@codelogs.fetchLatest())
-      .then (e) => 
+      .then (e) =>
+        @renderSelectors '#codelogtable'
+
+  onLevelSlugSearchInput: (e) ->
+    slug = $('#levelslug-search')[0].value
+    unless slug is ''
+      Promise.resolve(@codelogs.fetchBySlug(slug))
+      .then (e) =>
+        @renderSelectors '#codelogtable'
+    else
+      Promise.resolve(@codelogs.fetchLatest())
+      .then (e) =>
         @renderSelectors '#codelogtable'
 
   onClickPlayback: (e) ->

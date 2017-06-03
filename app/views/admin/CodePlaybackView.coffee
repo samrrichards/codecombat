@@ -11,10 +11,10 @@ module.exports = class CodePlaybackView extends CocoView
   template: template
   controlsEnabled: true
   events:
-    'click #play-button': 'onPlayClicked'
+    'click #play-button': 'onClickPlayButton'
     'input #slider': 'onSliderInput'
-    'click #pause-button': 'onPauseClicked'
-    'click .speed-button': 'onSpeedButtonClicked'
+    'click #pause-button': 'onClickPauseButton'
+    'click .speed-button': 'onClickSpeedButton'
 
   constructor: (options) ->
     super()
@@ -45,17 +45,17 @@ module.exports = class CodePlaybackView extends CocoView
     if @spade.elapsedTime >= @maxTime
       @clearPlayback()
 
-  onPlayClicked: (e) ->
+  onClickPlayButton: (e) ->
     @clearPlayback()
     @spade.play(@options.events, @ace, @$el.find('#slider')[0].value / 100)
     @interval = setInterval(@updateSlider, 1)
 
-  onSpeedButtonClicked: (e) ->
+  onClickSpeedButton: (e) ->
     @spade.speed = $(e.target).data('speed')
     $(e.target).siblings().removeClass 'clicked'
     $(e.target).addClass 'clicked'
 
-  onSliderInput: (e) ->
+  onClickSliderInput: (e) ->
     @clearPlayback()
     @$el.find('#start-time').text(((@$el.find('#slider')[0].value / 100 * @maxTime) / 1000).toFixed(0) + 's')
     render = @spade.renderTime(@options.events, @ace, @$el.find('#slider')[0].value / 100)
